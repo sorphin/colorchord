@@ -53,10 +53,11 @@ int bQuitColorChord = 0;
 #include <sys/types.h>
 #include <unistd.h>
 
-void HandleDestroy()
+int HandleDestroy()
 {
 	bQuitColorChord = 1;
 	CNFAClose( sd );
+	return 0;
 }
 
 
@@ -127,16 +128,15 @@ void example_log_function( int readSize, char *buf )
 #if defined( WIN32 ) || defined( USE_WINDOWS )
 #define ESCAPE_KEY 0x1B
 
-void HandleDestroy()
+int HandleDestroy()
 {
 	CNFAClose( sd );
+	return 0;
 }
 #else
 #define ESCAPE_KEY 65307
 // Stub function for Linux
-void HandleDestroy()
-{
-}
+int HandleDestroy() { return 0; }
 
 #endif
 
